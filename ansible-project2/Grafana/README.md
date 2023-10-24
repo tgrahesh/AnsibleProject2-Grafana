@@ -1,38 +1,64 @@
-Role Name
-=========
+# Prometheus Ansible Role
 
-A brief description of the role goes here.
+This Ansible role is designed to automate the installation and configuration of Prometheus, an open-source monitoring and alerting toolkit, on your target servers. It streamlines the setup and management of Prometheus, allowing you to collect and visualize metrics from various sources.
 
-Requirements
-------------
+## Overview
 
-Any pre-requisites that may not be covered by Ansible itself or the role should be mentioned here. For instance, if the role uses the EC2 module, it may be a good idea to mention in this section that the boto package is required.
+This Ansible role includes tasks for:
 
-Role Variables
---------------
+- Adding 'prometheus' and 'node_exporter' users.
+- Creating necessary directories and ownership.
+- Downloading the Prometheus release archive.
+- Calculating and displaying the SHA-256 checksum.
+- Extracting the Prometheus release archive.
+- Copying Prometheus binaries to `/usr/local/bin`.
+- Copying Prometheus consoles and libraries.
+- Replacing Prometheus configuration files.
+- Setting up Prometheus as a system service.
 
-A description of the settable variables for this role should go here, including any variables that are in defaults/main.yml, vars/main.yml, and any variables that can/should be set via parameters to the role. Any variables that are read from other roles and/or the global scope (ie. hostvars, group vars, etc.) should be mentioned here as well.
+By using this role, you can efficiently configure Prometheus for monitoring your infrastructure.
 
-Dependencies
-------------
+## Role Variables
 
-A list of other roles hosted on Galaxy should go here, plus any details in regards to parameters that may need to be set for other roles, or variables that are used from other roles.
+The role allows customization through variables. The following variables are available for configuration:
 
-Example Playbook
-----------------
+- `p_user`: The name of the 'prometheus' user.
+- `n_user`: The name of the 'node_exporter' user.
+- `prometheus_url`: The URL to download the Prometheus release archive.
 
-Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
+Customize these variables in your playbook to match your environment's requirements.
 
-    - hosts: servers
-      roles:
-         - { role: username.rolename, x: 42 }
+## Prerequisites
 
-License
--------
+Before using this role, ensure that you have the following prerequisites in place:
 
-BSD
+1. Ansible installed on your control node.
 
-Author Information
-------------------
+2. SSH access to the target servers with the necessary permissions.
 
-An optional section for the role authors to include contact information, or a website (HTML is not allowed).
+3. A compatible Linux distribution on your target servers.
+
+4. Correctly configured AWS Dynamic Inventory
+
+5. AWS credentials or appropriate IAM roles for accessing EC2 instances.
+
+## Usage
+
+1. Clone or download this repository to your Ansible project directory.
+
+2. Include this role in your playbook and specify the role variables as needed. Here's an example playbook:
+
+   ```yaml
+   - name: Configure Prometheus
+     hosts: your_target_hosts
+     become: yes
+
+     roles:
+       - role: prometheus
+         vars:
+           p_user: prometheus
+           n_user: node_exporter
+           prometheus_url: https://example.com/prometheus-2.47.1.linux-amd64.tar.gz
+   2. Run the playbook using the following command:
+   ansible-playbook -i inventory.ini your_playbook.yml
+

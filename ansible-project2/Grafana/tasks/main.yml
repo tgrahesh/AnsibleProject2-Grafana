@@ -1,0 +1,22 @@
+- name: Add Grafana GPG key to keyring
+  shell: "{{ grafana_gpg_key }}"
+  ignore_errors: true
+  changed_when: false
+- name: Add Grafana repository to sources.list
+  shell: "{{ grafana_repo }}"
+  ignore_errors: true
+  changed_when: false
+- name: Update APT cache
+  yum:
+    update_cache: yes
+- name: Install Grafana
+  yum:
+    name: grafana
+    state: present
+  notify:
+  - Start Grafana Service
+- name: Enable the Grafana service
+  systemd:
+    name: grafana-server
+    enabled: yes
+  become: true

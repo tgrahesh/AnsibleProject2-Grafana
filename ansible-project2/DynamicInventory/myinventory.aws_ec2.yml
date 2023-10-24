@@ -1,0 +1,15 @@
+# demo.aws_ec2.yml
+plugin: amazon.aws.aws_ec2
+regions:
+- eu-west-1
+hostnames:
+  # This option allows displaying the public ip addresses.
+  - ip-address
+filters:
+  # All instances with their state as `running`
+  tag:Name: Ansible-Managed Node-Grafana
+  instance-state-name: running
+compose:
+ansible_host: public_ip_address
+ansible_user: ec2-user
+ansible_ssh_private_key_file: /home/grahesh/.ansible/ansible-project1/LoadTest.pem

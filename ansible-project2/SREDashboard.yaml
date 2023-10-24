@@ -1,0 +1,11 @@
+---
+- name: Install Prometheus and Node Exporter and Grafana
+  hosts: all
+  become: yes  # Use elevated privileges
+  roles:
+    - prometheus
+    - NodeExporter
+    - Grafana
+
+  
+

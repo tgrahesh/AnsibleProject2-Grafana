@@ -1,0 +1,6 @@
+---
+# handlers file for NodeExporter
+- name: Reload node systemd
+  systemd:
+    name: node_exporter
+    state: restarted

@@ -7,7 +7,7 @@
 - [RolesOverview](#Overview)
 - [Usage](#Usage)
 
-## Overview
+## ProjectOverview
 
 This Ansible project automates the setup and configuration of a Site Reliability Engineering (SRE) Dashboard and Alerting system. The project uses Ansible roles to deploy Grafana for visualization, Prometheus for monitoring, and Node Exporter for collecting system metrics on target servers. This integrated setup enables you to monitor infrastructure and application health effectively.
 
@@ -20,11 +20,11 @@ Before using this role, ensure that you have the following prerequisites in plac
 
 2. SSH access to the target servers with the necessary permissions.
 
-3. A compatible Linux distribution on your target servers (e.g., Ubuntu, CentOS).
+3. A compatible Linux distribution on your target AWS Linux servers.
 
-4. Correctly configured AWS Dynamic Inventory or custom inventory.
+4. Correctly configured AWS Dynamic Inventory.
 
-5. AWS credentials or appropriate IAM roles for accessing EC2 instances (if applicable).
+5. AWS credentials or appropriate IAM roles for accessing EC2 instances.
 
 # RolesOverview
 

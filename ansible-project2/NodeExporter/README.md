@@ -1,38 +1,50 @@
-Role Name
-=========
+# Node Exporter Ansible Role
 
-A brief description of the role goes here.
+This Ansible role automates the installation and configuration of Node Exporter, a Prometheus exporter for server-level hardware and operating system metrics. Node Exporter collects various system metrics that can be scraped by Prometheus, facilitating server monitoring.
 
-Requirements
-------------
+## Overview
 
-Any pre-requisites that may not be covered by Ansible itself or the role should be mentioned here. For instance, if the role uses the EC2 module, it may be a good idea to mention in this section that the boto package is required.
+This Ansible role includes tasks for:
 
-Role Variables
---------------
+- Downloading the Node Exporter release archive.
+- Calculating and displaying the SHA-256 checksum.
+- Extracting the Node Exporter release archive.
+- Copying the Node Exporter binary to `/usr/local/bin`.
+- Rendering Node Exporter configuration from a Jinja2 template.
+- Replacing the content of the systemd service unit file.
+- Reloading systemd to apply changes.
+- Enabling the Node Exporter service.
+- Restarting Prometheus to include Node Exporter metrics.
 
-A description of the settable variables for this role should go here, including any variables that are in defaults/main.yml, vars/main.yml, and any variables that can/should be set via parameters to the role. Any variables that are read from other roles and/or the global scope (ie. hostvars, group vars, etc.) should be mentioned here as well.
+By using this role, you can automate the setup of Node Exporter for server monitoring.
 
-Dependencies
-------------
+## Role Variables
 
-A list of other roles hosted on Galaxy should go here, plus any details in regards to parameters that may need to be set for other roles, or variables that are used from other roles.
+This role allows customization through variables. The following variables are available for configuration:
 
-Example Playbook
-----------------
+- `n_user`: The name of the 'node_exporter' user.
+- `node_url`: The URL to download the Node Exporter release archive.
 
-Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
+You can customize these variables in your playbook to match your environment's requirements.
 
-    - hosts: servers
-      roles:
-         - { role: username.rolename, x: 42 }
+## Prerequisites
 
-License
--------
+Before using this role, ensure that you have the following prerequisites in place:
 
-BSD
+1. Ansible installed on your control node.
 
-Author Information
-------------------
+2. SSH access to the target servers with the necessary permissions.
 
-An optional section for the role authors to include contact information, or a website (HTML is not allowed).
+3. A compatible Linux distribution on your target servers (e.g., Ubuntu, CentOS).
+
+4. Correctly configured AWS Dynamic Inventory or custom inventory.
+
+5. AWS credentials or appropriate IAM roles for accessing EC2 instances (if applicable).
+
+## Usage
+
+1. Clone or download this repository to your Ansible project directory.
+
+2. Include this role in your playbook and specify the role variables as needed.
+3. Run the playbook using the following command:
+    ansible-playbook -i inventory.ini your_playbook.yml
